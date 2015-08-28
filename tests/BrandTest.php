@@ -106,6 +106,67 @@
             $this->assertEquals([$test_brand, $test_brand2], $result);
         }
 
+        function test_update()
+        {
+            //Arrange
+            $name = "Nike";
+            $stock = 5;
+            $id = null;
+            $test_brand = new Brand($name, $stock, $id);
+            $test_brand->save();
+
+            $new_name = "Adidas";
+            $new_stock = 8;
+            //Act
+            $test_brand->update($new_name, $new_stock);
+
+            //Assert
+            $this->assertEquals($new_name, $test_brand->getName());
+            $this->assertEquals($new_stock, $test_brand->getStock());
+        }
+
+        function test_find()
+        {
+            //Arrange
+            $name = "Nike";
+            $stock = 5;
+            $id = null;
+            $testbrande = new Brand($name, $stock, $id);
+            $testbrande->save();
+
+            $name2 = "Adidas";
+            $stock2 = 8;
+            $test_brand2 = new Brand($name2, $stock2, $id);
+            $test_brand2->save();
+
+            //Act
+            $result = Brand::find($test_brand2->getId());
+
+            //Assert
+            $this->assertEquals($test_brand2, $result);
+        }
+
+        function test_delete()
+        {
+            //Arrange
+            $name = "Nike";
+            $stock = 5;
+            $id = null;
+            $test_brand = new Brand($name, $stock, $id);
+            $test_brand->save();
+
+            $name2 = "Adidas";
+            $stock2 = 8;
+            $test_brand2 = new Brand($name2, $stock2, $id);
+            $test_brand2->save();
+
+            //Act
+            $test_brand->delete();
+            $result = Brand::getAll();
+
+            //Assert
+            $this->assertEquals($test_brand2, $result[0]);
+        }
 
 
 

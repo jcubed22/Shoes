@@ -47,10 +47,10 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function update($new_name, $new_stock, $new_phone)
+        function update($new_name, $new_stock)
         {
             $GLOBALS['DB']->exec("UPDATE brands SET name = '{$new_name}', stock = '{$new_stock}' WHERE id = {$this->getId()};");
-            $this->setRetailer($new_name);
+            $this->setName($new_name);
             $this->setStock($new_stock);
         }
 

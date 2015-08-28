@@ -131,6 +131,31 @@
             $this->assertEquals([$test_store, $test_store2], $result);
         }
 
+        /* I didn't want to spend a ton of time figuring out a more elegant way to test the update functionality for all three.  I ran the test three times, changing the assertion every time, and they all passed. But I also discovered that if you have multiple assertEquals statements, they all have to evaluate to true for the test to pass.  Is this a kosher way to go about this, or is there a better one? */
+        function test_update()
+        {
+            //Arrange
+            $retailer = "Nordstrom";
+            $address = "1234 SW Main Street";
+            $phone = "123-456-7890";
+            $id = null;
+            $test_store = new Store($retailer, $address, $phone, $id);
+            $test_store->save();
+
+            $new_retailer = "Macys";
+            $new_address = "400 SW 6th Avenue";
+            $new_phone = "888-888-8888";
+
+            //Act
+            $test_store->update($new_retailer, $new_address, $new_phone);
+
+            //Assert
+            $this->assertEquals($new_retailer, $test_store->getRetailer());
+            $this->assertEquals($new_address, $test_store->getAddress());
+            $this->assertEquals($new_phone, $test_store->getPhone());
+        }
+        
+
     }
 
 

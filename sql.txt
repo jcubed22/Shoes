@@ -1,0 +1,6 @@
+bash> mysql.server start
+bash> apachectl start
+bash> mysql -uroot -proot
+mysql> CREATE DATABASE shoes;
+mysql> USE shoes;
+mysql> CREATE TABLE stores (retailer VARCHAR (255), address VARCHAR (255), phone VARCHAR (255), id serial PRIMARY KEY);

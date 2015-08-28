@@ -29,6 +29,13 @@
         return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
     });
 
+    /* Route for Add Store form from Stores page */
+    $app->post('/stores', function() use ($app) {
+        $store = new Store($_POST['retailer'], $_POST['address'], $_POST['phone']);
+        $store->save();
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
+    });
+
     /* Linked from home page "Browse by brand" link.  Takes user to separeate page dispalying list of all added brands. */
     $app->get('/brands', function() use ($app) {
 

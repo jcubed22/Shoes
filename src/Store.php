@@ -69,6 +69,11 @@
             $this->setPhone($new_phone);
         }
 
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM stores WHERE id = {$this->getId()};");
+        }
+
         //Static functions
         static function getAll()
         {
@@ -83,6 +88,19 @@
                 array_push($stores, $new_store);
             }
             return $stores;
+        }
+
+        static function find($search_id)
+        {
+            $found_store = null;
+            $stores = Store::getAll();
+            foreach($stores as $store) {
+                $store_id = $store->getId();
+                if ($store_id == $search_id) {
+                    $found_store = $store;
+                }
+            }
+            return $found_store;
         }
 
         static function deleteAll()

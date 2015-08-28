@@ -27,8 +27,7 @@
         {
             //Arrange
             $name = "Nike";
-            $stock = 3;
-            $test_brand = new Brand($name, $stock);
+            $test_brand = new Brand($name);
             $new_name = "Adidas";
 
             //Act
@@ -39,31 +38,13 @@
             $this->assertEquals($new_name, $result);
         }
 
-        //Tests both stock setter and getter
-        function test_setStock()
-        {
-            //Arrange
-            $name = "Nike";
-            $stock = 4;
-            $test_brand = new Brand($name, $stock);
-            $new_stock = 2;
-
-            //Act
-            $test_brand->setStock($new_stock);
-            $result = $test_brand->getStock();
-
-            //Assert
-            $this->assertEquals($new_stock, $result);
-        }
-
         //Tests getId method
         function test_getId()
         {
             //Arrange
             $name = "Nike";
-            $stock = 4;
             $id = 3;
-            $test_brand = new Brand($name, $stock, $id);
+            $test_brand = new Brand($name, $id);
 
             //Act
             $result = $test_brand->getId();
@@ -76,9 +57,8 @@
         {
             //Arrange
             $name = "Nike";
-            $stock = 5;
             $id = null;
-            $test_brand = new Brand($name, $stock, $id);
+            $test_brand = new Brand($name, $id);
 
             //Act
             $test_brand->save();
@@ -92,13 +72,11 @@
         {
             //Arrange
             $name = "Nike";
-            $stock = 4;
             $id = null;
-            $test_brand = new Brand($name, $stock, $id);
+            $test_brand = new Brand($name, $id);
 
             $name2 = "Adidas";
-            $stock2 = 20;
-            $test_brand2 = new Brand($name2, $stock2, $id);
+            $test_brand2 = new Brand($name2, $id);
 
             //Act
             $test_brand->save();
@@ -113,33 +91,28 @@
         {
             //Arrange
             $name = "Nike";
-            $stock = 5;
             $id = null;
-            $test_brand = new Brand($name, $stock, $id);
+            $test_brand = new Brand($name, $id);
             $test_brand->save();
 
             $new_name = "Adidas";
-            $new_stock = 8;
             //Act
-            $test_brand->update($new_name, $new_stock);
+            $test_brand->update($new_name);
 
             //Assert
             $this->assertEquals($new_name, $test_brand->getName());
-            $this->assertEquals($new_stock, $test_brand->getStock());
         }
 
         function test_find()
         {
             //Arrange
             $name = "Nike";
-            $stock = 5;
             $id = null;
-            $testbrande = new Brand($name, $stock, $id);
+            $testbrande = new Brand($name, $id);
             $testbrande->save();
 
             $name2 = "Adidas";
-            $stock2 = 8;
-            $test_brand2 = new Brand($name2, $stock2, $id);
+            $test_brand2 = new Brand($name2, $id);
             $test_brand2->save();
 
             //Act
@@ -153,14 +126,12 @@
         {
             //Arrange
             $name = "Nike";
-            $stock = 5;
             $id = null;
-            $test_brand = new Brand($name, $stock, $id);
+            $test_brand = new Brand($name, $id);
             $test_brand->save();
 
             $name2 = "Adidas";
-            $stock2 = 8;
-            $test_brand2 = new Brand($name2, $stock2, $id);
+            $test_brand2 = new Brand($name2, $id);
             $test_brand2->save();
 
             //Act
@@ -175,9 +146,8 @@
         {
             //Arrange
             $name = "Nike";
-            $stock = 5;
             $id = null;
-            $test_brand = new Brand($name, $stock, $id);
+            $test_brand = new Brand($name, $id);
             $test_brand->save();
 
             $retailer = "Nordstrom";
@@ -198,9 +168,8 @@
         {
             //Arrange
             $name = "Nike";
-            $stock = 5;
             $id = null;
-            $test_brand = new Brand($name, $stock, $id);
+            $test_brand = new Brand($name, $id);
             $test_brand->save();
 
             $retailer = "Nordstrom";

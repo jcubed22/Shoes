@@ -91,9 +91,8 @@
             $brands = array();
             foreach ($found_brands as $brand) {
                 $name = $brand['name'];
-                $stock = $brand['stock'];
                 $id = $brand['id'];
-                $new_brand = new Brand($name, $stock, $id);
+                $new_brand = new Brand($name, $id);
                 array_push($brands, $new_brand);
             }
             return $brands;

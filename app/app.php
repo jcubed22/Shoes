@@ -39,11 +39,11 @@
     /* Linked from home page "Browse by brand" link.  Takes user to separeate page dispalying list of all added brands. */
     $app->get('/brands', function() use ($app) {
 
-        return $app['twig']->render('brands.html.twig', array('stores' => Brand::getAll()));
+        return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
     });
 
     $app->post('/brands', function() use ($app) {
-        $brand = new Brand($_POST['name'], null);
+        $brand = new Brand($_POST['name']);
         $brand->save();
         return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
     });

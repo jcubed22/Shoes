@@ -3,13 +3,11 @@
     class Brand
     {
         private $name;
-        private $stock;
         private $id;
 
-        function __construct($name, $stock, $id = null)
+        function __construct($name, $id = null)
         {
             $this->name = $name;
-            $this->stock = $stock;
             $this->id = $id;
         }
 
@@ -24,17 +22,6 @@
             return $this->name;
         }
 
-        //Stock setter and getter
-        function setStock($new_stock)
-        {
-            $this->stock = $new_stock;
-        }
-
-        function getStock()
-        {
-            return $this->stock;
-        }
-
         //ID getter
         function getId()
         {
@@ -43,15 +30,14 @@
 
         function save()
         {
-            $GLOBALS['DB']->exec("INSERT INTO brands (name, stock) VALUES ('{$this->getName()}', '{$this->getStock()}');");
+            $GLOBALS['DB']->exec("INSERT INTO brands (name) VALUES ('{$this->getName()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function update($new_name, $new_stock)
+        function update($new_name)
         {
-            $GLOBALS['DB']->exec("UPDATE brands SET name = '{$new_name}', stock = '{$new_stock}' WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("UPDATE brands SET name = '{$new_name}' WHERE id = {$this->getId()};");
             $this->setName($new_name);
-            $this->setStock($new_stock);
         }
 
         function delete()
@@ -92,9 +78,8 @@
             $brands = array();
             foreach($returned_brands as $brand) {
                 $name = $brand['name'];
-                $stock = $brand['stock'];
                 $id = $brand['id'];
-                $new_brand = new Brand($name, $stock, $id);
+                $new_brand = new Brand($name, $id);
                 array_push($brands, $new_brand);
             }
             return $brands;

@@ -44,6 +44,13 @@
         return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
     });
 
+    /* Route from Stores page to individual store */
+    $app->get('/stores/{id}', function($id) use ($app) {
+        $store = Store::find($id);
+
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
+    });
+
     /* Linked from home page "Browse by brand" link.  Takes user to separeate page dispalying list of all added brands. */
     $app->get('/brands', function() use ($app) {
 

@@ -111,5 +111,14 @@
         return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
     });
 
+    /* Route from individual brand page to add store to that brand */
+    $app->post('/add_store', function() use ($app) {
+        $brand = Brand::find($_POST['brand_id']);
+        $store = Store::find($_POST['store_id']);
+        $brand->addStore($store);
+
+        return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
+    });
+
     return $app;
 ?>

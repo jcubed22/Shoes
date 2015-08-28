@@ -1,35 +1,45 @@
 <html>
     <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <title>Kelly's Shoes: Let's Get Em!</title>
     </head>
     <body>
-        <h1>List of Stores</h1>
+        <div class="container">
+            <h1>List of Stores</h1>
+            <hr>
+            {% if stores is not empty %}
+                <p>Choose a store to see its selection of brands</p>
+                <ul>
+                    {% for store in stores %}
+                        <li><a href="/stores/{{ store.getId }}">{{ store.getRetailer }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No stores appear to have been added.  Fill out the form below to add one.</p>
+            {% endif %}
 
-        {% if stores is not empty %}
-            <p>Choose a store to see its selection of brands</p>
-            <ul>
-                {% for store in stores %}
-                    <li><a href="/stores/{{ store.getId }}">{{ store.getRetailer }}</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No stores appear to have been added.  Fill out the form below to add one.</p>
-        {% endif %}
+            <form action="/stores" method="post">
+                <div class="form-group">
+                    <label for="retailer">Enter the name of the retailer:</label>
+                    <input class="form-control" id="retailer" name="retailer" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Enter their address:</label>
+                    <input class="form-control" id="address" name="address" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Enter their phone number:</label>
+                    <input class="form-control" for="phone" name="phone" type="text" required>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">Add retailer</button>
+                </div>
+            </form>
 
-        <form action="/stores" method="post">
-            <label for="retailer">Enter the name of the retailer:</label>
-            <input id="retailer" name="retailer" type="text">
-            <label for="address">Enter their address:</label>
-            <input id="address" name="address" type="text">
-            <label for="phone">Enter their phone number:</label>
-            <input for="phone" name="phone" type="text">
-            <button type="submit">Add retailer</button>
-        </form>
-
-        <form action="/delete_stores" method="post">
-            <button type="submit">Delete all stores</button>
-        </form>
-
-        <p><a href="/">Home</a></p>
+            <form action="/delete_stores" method="post">
+                <button class="btn btn-primary" type="submit" onclick="return confirm('Are you sure you want to delete all stores?')">Delete all stores</button>
+            </form>
+            <p><a href="/">Home</a></p>
+        </div>
     </body>
 </html>

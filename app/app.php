@@ -12,6 +12,7 @@
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
+    /* Allows usage of patch & delete _methods in hidden forms */
     use Symfony\Component\HttpFoundation\Request;
     Request::enableHttpMethodParameterOverride();
 

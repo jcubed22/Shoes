@@ -61,6 +61,14 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function update($new_retailer, $new_address, $new_phone)
+        {
+            $GLOBALS['DB']->exec("UPDATE stores SET retailer = '{$new_retailer}', address = '{$new_address}', phone = '{$new_phone}' WHERE id = {$this->getId();};");
+            $this->setRetailer($new_retailer);
+            $this->setAddress($new_address);
+            $this->setPhone($new_phone);
+        }
+
         //Static functions
         static function getAll()
         {

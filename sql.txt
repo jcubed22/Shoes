@@ -4,3 +4,5 @@ bash> mysql -uroot -proot
 mysql> CREATE DATABASE shoes;
 mysql> USE shoes;
 mysql> CREATE TABLE stores (retailer VARCHAR (255), address VARCHAR (255), phone VARCHAR (255), id serial PRIMARY KEY);
+mysql> CREATE TABLE brands (name VARCHAR (255), stock INT, id serial PRIMARY KEY);
+mysql> DROP DATABASE shoes_test;

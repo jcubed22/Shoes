@@ -6,6 +6,7 @@
     */
 
     require_once "src/Store.php";
+    require_once "src/Brand.php";
 
     $server = 'mysql:host=localhost;dbname=shoes_test';
     $username = 'root';
@@ -17,6 +18,8 @@
         protected function tearDown()
         {
             Store::deleteAll();
+            Brand::deleteAll();
+            $GLOBALS['DB']->exec("DELETE FROM availability;");
         }
 
         //Tests both retailer setter and getter
@@ -201,6 +204,59 @@
             //Assert
             $this->assertEquals($test_store2, $result[0]);
         }
+
+        function test_addBrand()
+        {
+            //Arrange
+            $retailer = "Nordstrom";
+            $address = "1234 SW Main Street";
+            $phone = "123-456-7890";
+            $id = null;
+            $test_store = new Store($retailer, $address, $phone, $id);
+            $test_store->save();
+
+            $name = "Nike";
+            $stock = 5;
+            $test_brand = new Brand($name, $stock, $id);
+            $test_brand->save();
+
+            //Act
+            $test_store->addBrand($test_brand);
+            $result = $test_store->getBrands();
+
+            //Assert
+            $this->assertEquals($test_brand, $result[0]);
+        }
+
+        function test_getBrands()
+        {
+            //Arrange
+            $retailer = "Nordstrom";
+            $address = "1234 SW Main Street";
+            $phone = "123-456-7890";
+            $id = null;
+            $test_store = new Store($retailer, $address, $phone, $id);
+            $test_store->save();
+
+            $name = "Nike";
+            $stock = 5;
+            $test_brand = new Brand($name, $stock, $id);
+            $test_brand->save();
+
+            $name2 = "Adidas";
+            $stock2 = 8;
+            $test_brand2 = new Brand($name2, $stock2, $id);
+            $test_brand2->save();
+
+            //Act
+            $test_store->addBrand($test_brand);
+            $test_store->addBrand($test_brand2);
+            $result = $test_store->getBrands();
+
+            //Assert
+            $this->assertEquals([$test_brand, $test_brand2], $result);
+        }
+
 
     }
 

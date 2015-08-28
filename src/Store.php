@@ -61,7 +61,8 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
-        function getAll()
+        //Static functions
+        static function getAll()
         {
             $returned_stores = $GLOBALS['DB']->query("SELECT * FROM stores;");
             $stores = array();
@@ -76,13 +77,9 @@
             return $stores;
         }
 
-
-
-
-        //Static functions
         static function deleteAll()
         {
-            $GLOBALS['DB']->exec("DELETE * FROM stores;");
+            $GLOBALS['DB']->exec("DELETE FROM stores;");
         }
 
     }

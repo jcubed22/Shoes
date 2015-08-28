@@ -120,5 +120,13 @@
         return $app['twig']->render('brand.html.twig', array('brand' => $brand, 'stores' => $brand->getStores(), 'all_stores' => Store::getAll()));
     });
 
+    /* Route to delete a brand from individual brand page */
+    $app->delete('/brand/{id}', function($id) use ($app) {
+        $brand = Brand::find($id);
+        $brand->delete();
+
+        return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
+    });
+
     return $app;
 ?>

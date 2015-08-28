@@ -154,7 +154,53 @@
             $this->assertEquals($new_address, $test_store->getAddress());
             $this->assertEquals($new_phone, $test_store->getPhone());
         }
-        
+
+        function test_find()
+        {
+            //Arrange
+            $retailer = "Nordstrom";
+            $address = "1234 SW Main Street";
+            $phone = "123-456-7890";
+            $id = null;
+            $test_store = new Store($retailer, $address, $phone, $id);
+            $test_store->save();
+
+            $retailer2 = "Macys";
+            $address2 = "400 SW 6th Avenue";
+            $phone2 = "888-888-8888";
+            $test_store2 = new Store($retailer2, $address2, $phone2, $id);
+            $test_store2->save();
+
+            //Act
+            $result = Store::find($test_store2->getId());
+
+            //Assert
+            $this->assertEquals($test_store2, $result);
+        }
+
+        function test_delete()
+        {
+            //Arrange
+            $retailer = "Nordstrom";
+            $address = "1234 SW Main Street";
+            $phone = "123-456-7890";
+            $id = null;
+            $test_store = new Store($retailer, $address, $phone, $id);
+            $test_store->save();
+
+            $retailer2 = "Macys";
+            $address2 = "400 SW 6th Avenue";
+            $phone2 = "888-888-8888";
+            $test_store2 = new Store($retailer2, $address2, $phone2, $id);
+            $test_store2->save();
+
+            //Act
+            $test_store->delete();
+            $result = Store::getAll();
+
+            //Assert
+            $this->assertEquals($test_store2, $result[0]);
+        }
 
     }
 

@@ -4,6 +4,24 @@
     </head>
     <body>
         <h1>Available Brands</h1>
-        
+
+        {% if stores is not empty %}
+            <p>Choose a store to see its selection of brands</p>
+            <ul>
+                {% for store in stores %}
+                    <li><a href="/brands/{{ brand.getId }}">{{ brand.getName }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No stores appear to have been added.  Fill out the form below to add one.</p>
+        {% endif %}
+
+        <form action="/brands" method="post">
+            <label for="name">Enter the name of the brand:</label>
+            <input id="name" placeholder="Brand name" name="name" type="text">
+            <button type="submit">Add brand</button>
+        </form>
+
+        <p><a href="/">Home</a></p>
     </body>
 </html>

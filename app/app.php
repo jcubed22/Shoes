@@ -60,6 +60,29 @@
         return $app['twig']->render('store.html.twig', array('store' => $store, 'brands' => $store->getBrands(), 'all_brands' => Brand::getAll()));
     });
 
+    /* Route to edit page from individual store page */
+    $app->get('/stores/{id}/edit', function($id) use ($app) {
+        $store = Store::find($id);
+
+        return $app['twig']->render('store_edit.html.twig', array('store' => $store));
+    });
+
+    /* Update individual store */
+    $app->patch('/stores/{id}', function($id) use ($app) {
+        $store = Store::find($id);
+        $store->update($_POST['retailer'], $_POST['address'], $_POST['phone']);
+
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
+    });
+
+    /* Delete store from store edit page */
+    $app->delete('/stores/{id}', function($id) use ($app) {
+        $store = Store::find($id);
+        $store->delete();
+
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
+    });
+
     /* Linked from home page "Browse by brand" link.  Takes user to separeate page dispalying list of all added brands. */
     $app->get('/brands', function() use ($app) {
 

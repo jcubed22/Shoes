@@ -36,6 +36,12 @@
         return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
     });
 
+    $app->post('/delete_stores', function() use ($app) {
+        Store::deleteAll();
+
+        return $app['twig']->render('stores.html.twig', array('stores' => Store::getAll()));
+    });
+
     /* Linked from home page "Browse by brand" link.  Takes user to separeate page dispalying list of all added brands. */
     $app->get('/brands', function() use ($app) {
 
@@ -51,7 +57,7 @@
     $app->post('/delete_brands', function() use ($app) {
         Brand::deleteAll();
 
-        return $app['twig']->render('index.html.twig', array('brands' => Brand::getAll()));
+        return $app['twig']->render('brands.html.twig', array('brands' => Brand::getAll()));
     });
 
     return $app;

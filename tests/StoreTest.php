@@ -91,6 +91,46 @@
             $this->assertEquals($id, $result);
         }
 
+        function test_save()
+        {
+            //Arrange
+            $retailer = "Nordstrom";
+            $address = "1234 SW Main Street";
+            $phone = "123-456-7890";
+            $id = null;
+            $test_store = new Store($retailer, $address, $phone, $id);
+
+            //Act
+            $test_store->save();
+            $result = Store::getAll();
+
+            //Assert
+            $this->assertEquals($test_store, $result[0]);
+        }
+
+        function test_getAll()
+        {
+            //Arrange
+            $retailer = "Nordstrom";
+            $address = "1234 SW Main Street";
+            $phone = "123-456-7890";
+            $id = null;
+            $test_store = new Store($retailer, $address, $phone, $id);
+
+            $retailer2 = "Macys";
+            $address2 = "400 SW 6th Avenue";
+            $phone2 = "888-888-8888";
+            $test_store2 = new Store($retailer2, $address2, $phone2, $id);
+
+            //Act
+            $test_store->save();
+            $test_store2->save();
+            $result = Store::getAll();
+
+            //Assert
+            $this->assertEquals([$test_store, $test_store2], $result);
+        }
+
     }
 
 
